@@ -3,33 +3,34 @@ package com.zjm.schoolmarket.entity;
 import java.util.Date;
 
 public class Shop {
-	//µêÆÌID
+	//ï¿½ï¿½ï¿½ï¿½ID
 	private Long shopId;
-	//µêÆÌÃû
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private String shopName;
-	//µêÆÌÃèÊö
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private String shopDesc;
-	//µØÖ·
+	//ï¿½ï¿½Ö·
 	private String shopAddr;
-	//ÁªÏµ·½Ê½
+	//ï¿½ï¿½Ïµï¿½ï¿½Ê½
 	private String phone;
-	//µêÆÌËõÂÔÍ¼µØÖ·
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ö·
 	private String shopImg;
-	//È¨ÖØ£¨µêÆÌÕ¹Ê¾ÓÅÏÈ¼¶£¬ÅÅÃû£©
+	//È¨ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private Integer priority;
-	//´´½¨Ê±¼ä
-	private Date creareTime;
-	//ĞŞ¸ÄÊ±¼ä
+	//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	private Date createTime;
+	
+	//ï¿½Ş¸ï¿½Ê±ï¿½ï¿½
 	private Date lastEditTime;
-	//-1.²»¿ÉÓÃ  0.ÉóºËÖĞ  1.¿ÉÓÃ
+	//-1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  0.ï¿½ï¿½ï¿½ï¿½ï¿½  1.ï¿½ï¿½ï¿½ï¿½
 	private Integer enableStatus;
-	//³¬¼¶¹ÜÀíÔ±¸øµê¼ÒµÄÌáĞÑ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 	private String advice;
-	//µêÆÌÊôÓÚÄÄ¿éÇøÓò
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	private Area area;
-	//µêÆÌ´´½¨Õß
+	//ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ï¿½ï¿½
 	private PersonInfo owner;
-	//µêÆÌÎªºÎÖÖÀà±ğ
+	//ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private ShopCategory shopCategory;
 	
 	public Long getShopId() {
@@ -74,11 +75,11 @@ public class Shop {
 	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
-	public Date getCreareTime() {
-		return creareTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setCreareTime(Date creareTime) {
-		this.creareTime = creareTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	public Date getLastEditTime() {
 		return lastEditTime;

@@ -1,0 +1,7 @@
+/.idea/
+/.settings/
+*.iml
+/.externalToolBuilders/
+/catalina.base_IS_UNDEFINED/
+.project
+.classpath
