@@ -6,32 +6,32 @@ import com.zjm.schoolmarket.enums.ShopStateEnum;
 import java.util.List;
 
 public class ShopExecution {
-    //½á¹û×´Ì¬
+    //ç»“æœçŠ¶æ€
     private int state;
 
-    //×´Ì¬±êÊ¶
+    //çŠ¶æ€æ ‡è¯†
     private String stateInfo;
 
-    //µêÆÌÊıÁ¿
+    //åº—é“ºæ•°é‡
     private int count;
 
-    //²Ù×÷µÄshop£¨µêÆÌÔöÉ¾¸Ä²éµÄÊ±ºòÓÃµ½£©
+    //æ“ä½œçš„shopï¼ˆåº—é“ºå¢åˆ æ”¹æŸ¥çš„æ—¶å€™ç”¨åˆ°ï¼‰
     private Shop shop;
 
-    //shopÁĞ±í£¨²éÑ¯µêÆÌÁĞ±íµÄÊ±ºòÓÃµ½£©
+    //shopåˆ—è¡¨ï¼ˆæŸ¥è¯¢åº—é“ºåˆ—è¡¨çš„æ—¶å€™ç”¨åˆ°ï¼‰
     private List<Shop> shopList;
 
     public ShopExecution() {
 
     }
 
-    //µêÆÌ²Ù×÷Ê§°ÜÊ±Ê¹ÓÃµÄ¹¹ÔìÆ÷£¬Ö»·µ»ØµêÆÌ×´Ì¬
+    //åº—é“ºæ“ä½œå¤±è´¥æ—¶ä½¿ç”¨çš„æ„é€ å™¨ï¼Œåªè¿”å›åº—é“ºçŠ¶æ€
     public ShopExecution(ShopStateEnum stateEnum) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();
     }
 
-    //µêÆÌ²Ù×÷³É¹¦Ê±Ê¹ÓÃµÄ¹¹ÔìÆ÷£¬¿É·µ»Øshop¶ÔÏó
+    //åº—é“ºæ“ä½œæˆåŠŸæ—¶ä½¿ç”¨çš„æ„é€ å™¨ï¼Œå¯è¿”å›shopå¯¹è±¡
     public ShopExecution(ShopStateEnum stateEnum, Shop shop) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();
@@ -78,7 +78,7 @@ public class ShopExecution {
         this.shopList = shopList;
     }
 
-    //µêÆÌ²Ù×÷³É¹¦Ê±Ê¹ÓÃµÄ¹¹ÔìÆ÷£¬¿É·µ»ØshopÁĞ±í
+    //åº—é“ºæ“ä½œæˆåŠŸæ—¶ä½¿ç”¨çš„æ„é€ å™¨ï¼Œå¯è¿”å›shopåˆ—è¡¨
     public ShopExecution(ShopStateEnum stateEnum, List<Shop> shopList) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();

@@ -7,7 +7,6 @@ public class HeadLine {
 	private String lineLink;
 	private String lineImg;
 	private Integer priority;
-	//0.不可用 1.可用
 	private Integer enableStatue;
 	private Date createTime;
 	private Date lastEditTime;

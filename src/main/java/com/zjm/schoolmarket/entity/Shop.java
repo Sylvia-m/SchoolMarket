@@ -3,34 +3,34 @@ package com.zjm.schoolmarket.entity;
 import java.util.Date;
 
 public class Shop {
-	//����ID
+	//店铺ID
 	private Long shopId;
-	//������
+	//店铺名
 	private String shopName;
-	//��������
+	//店铺描述
 	private String shopDesc;
-	//��ַ
+	//店铺地址
 	private String shopAddr;
-	//��ϵ��ʽ
+	//电话
 	private String phone;
-	//��������ͼ��ַ
+	//店铺图片
 	private String shopImg;
-	//Ȩ�أ�����չʾ���ȼ���������
+	//权重，优先级
 	private Integer priority;
-	//����ʱ��
+	//创建时间
 	private Date createTime;
-	
-	//�޸�ʱ��
+
+	//修改时间
 	private Date lastEditTime;
-	//-1.������  0.�����  1.����
+	//-1.  0.  1.
 	private Integer enableStatus;
-	//��������Ա����ҵ�����
+	//
 	private String advice;
-	//���������Ŀ�����
+	//
 	private Area area;
-	//���̴�����
+	//
 	private PersonInfo owner;
-	//����Ϊ�������
+	//
 	private ShopCategory shopCategory;
 	
 	public Long getShopId() {

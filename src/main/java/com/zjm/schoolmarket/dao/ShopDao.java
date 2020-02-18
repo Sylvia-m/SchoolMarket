@@ -2,12 +2,13 @@ package com.zjm.schoolmarket.dao;
 
 import com.zjm.schoolmarket.entity.Shop;
 
-/**
- * 新增店铺
- * @param shop
- * @return
- */
+
 public interface ShopDao {
+	/**
+	 * 新增店铺
+	 * @param shop
+	 * @return
+	 */
 	int insertShop(Shop shop);
 	
 	/**

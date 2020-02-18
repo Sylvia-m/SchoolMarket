@@ -7,23 +7,23 @@ public class Product {
 	private Long productId;
 	private String productName;
 	private String productDesc;
-	//ÉÌÆ·ËõÂÔÍ¼µØÖ·
+	//å•†å“ç¼©ç•¥å›¾åœ°å€
 	private String imgAddr;
-	//Ô­¼Û
+	//åŸä»·
 	private String normalPrice;
-	//ÕÛ¿Û¼Û
+	//æŠ˜æ‰£ä»·
 	private String promotionPrice;
 	private Integer priority;
 	private Date createTime;
 	private Date lastEditTime;
-	//0.ÏÂ¼Ü  1.ÔÚÇ°¶ËÕ¹Ê¾ÏµÍ³Õ¹Ê¾
+	//0.ä¸‹æ¶  1.åœ¨å‰ç«¯å±•ç¤ºç³»ç»Ÿå±•ç¤º
 	private Integer enableStatus;
-	
-	//ÉÌÆ·ÏêÇéÍ¼Æ¬ÁĞ±í
+
+	//å•†å“è¯¦æƒ…å›¾ç‰‡åˆ—è¡¨
 	private List<ProductImg> productImgList;
 	private ProductCategory productCategory;
 	private Shop shop;
-	
+
 	public Long getProductId() {
 		return productId;
 	}

@@ -3,25 +3,25 @@ package com.zjm.schoolmarket.entity;
 import java.util.Date;
 
 public class PersonInfo {
-	//ÓÃ»§ID
+	//ç”¨æˆ·ID
 	private Long userId;
-	//ÓÃ»§ĞÕÃû
+	//ç”¨æˆ·å§“å
 	private String name;
-	//ÓÃ»§Í·ÏñµØÖ·
+	//ç”¨æˆ·å¤´åƒåœ°å€
 	private String profileImg;
-	//ÓÃ»§ÓÊÏä
+	//ç”¨æˆ·é‚®ç®±
 	private String email;
-	//ÓÃ»§ĞÔ±ğ
+	//ç”¨æˆ·æ€§åˆ«
 	private String gender;
-	//ÓÃ»§×´Ì¬£¬ÊÇ·ñÓĞ×Ê¸ñµÇÂ¼ÉÌ³Ç²Ù×÷(ÈôÕËºÅ±»½ûÓÃÔòÎŞ·¨µÇÂ¼ÉÌ³Ç×öÈÎºÎ²Ù×÷)
+	//ç”¨æˆ·çŠ¶æ€ï¼Œæ˜¯å¦æœ‰èµ„æ ¼ç™»å½•å•†åŸæ“ä½œ(è‹¥è´¦å·è¢«ç¦ç”¨åˆ™æ— æ³•ç™»å½•å•†åŸåšä»»ä½•æ“ä½œ)
 	private Integer enableStatus;
-	//ÓÃ»§Éí·İ±êÊ¶(1.¹Ë¿Í 2.µê¼Ò 3.³¬¼¶¹ÜÀíÔ±)
+	//ç”¨æˆ·èº«ä»½æ ‡è¯†(1.é¡¾å®¢ 2.åº—å®¶ 3.è¶…çº§ç®¡ç†å‘˜)
 	private Integer userType;
-	//´´½¨Ê±¼ä
+	//åˆ›å»ºæ—¶é—´
 	private Date createTime;
-	//¸üĞÂÊ±¼ä
+	//æ›´æ–°æ—¶é—´
 	private Date lastEditTime;
-	
+
 	public Long getUserId() {
 		return userId;
 	}

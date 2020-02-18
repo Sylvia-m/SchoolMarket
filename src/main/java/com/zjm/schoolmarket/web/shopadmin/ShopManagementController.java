@@ -5,6 +5,7 @@ import com.zjm.schoolmarket.dto.ShopExecution;
 import com.zjm.schoolmarket.entity.PersonInfo;
 import com.zjm.schoolmarket.entity.Shop;
 import com.zjm.schoolmarket.enums.ShopStateEnum;
+import com.zjm.schoolmarket.exception.ShopOperationException;
 import com.zjm.schoolmarket.service.ShopService;
 import com.zjm.schoolmarket.util.HttpServletRequestUtil;
 import com.zjm.schoolmarket.util.ImageUtil;
@@ -31,88 +32,87 @@ public class ShopManagementController {
     @RequestMapping(value = "/registershop",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
-        Map<String,Object> modelMap = new HashMap<String,Object>(); //¶¨ÒåÒ»¸ö·µ»ØÖµ
-        //1.½ÓÊÕ²¢×ª»¯ÏàÓ¦µÄ²ÎÊı£¬°üÀ¨µêÆÌĞÅÏ¢ÒÔ¼°Í¼Æ¬ĞÅÏ¢
+        Map<String,Object> modelMap = new HashMap<String,Object>(); //å®šä¹‰ä¸€ä¸ªè¿”å›å€¼
+        //1.æ¥æ”¶å¹¶è½¬åŒ–ç›¸åº”çš„å‚æ•°ï¼ŒåŒ…æ‹¬åº—é“ºä¿¡æ¯ä»¥åŠå›¾ç‰‡ä¿¡æ¯
         String shopStr = HttpServletRequestUtil.getString(request,"shopStr");
         ObjectMapper mapper = new ObjectMapper();
         Shop shop = null;
         try {
-            shop = mapper.readValue(shopStr,Shop.class); //½«½ÓÊÜµÄĞÅÏ¢×ª»»³ÉshopÊµÌåÀà
+            shop = mapper.readValue(shopStr,Shop.class); //å°†æ¥å—çš„ä¿¡æ¯è½¬æ¢æˆshopå®ä½“ç±»
         }catch (Exception e){
             modelMap.put("success",false);
             modelMap.put("errMsg",e.getMessage());
             return modelMap;
         }
 
-        CommonsMultipartFile shopImg = null; //½ÓÊÜÍ¼Æ¬ĞÅÏ¢
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext()); //ÎÄ¼şÉÏ´«½âÎöÆ÷½âÎörequestÀïµÄĞÅÏ¢
-        if (commonsMultipartResolver.isMultipart(request)){ //ÅĞ¶ÏrequestÖĞÊÇ·ñÓĞÉÏ´«µÄÎÄ¼şÁ÷
+        /**
+         * ä¸ºä»€ä¹ˆServiceå±‚ä¸ç›´æ¥ä½¿ç”¨CommonsMultipartFileè¿™ä¸ªæ–¹æ³•ï¼Ÿ
+         * å› ä¸ºåœ¨Serviceå±‚çš„UnitTestä¸­CommonsMultipartFileæ˜¯å¾ˆéš¾é€ å‡ºæ¥çš„ï¼Œä¼šå¸¦æ¥ç¼–å†™unitTestçš„æˆæœ¬ï¼Œå› æ­¤æ”¹é€ ä½¿ç”¨InPutStream
+         */
+        CommonsMultipartFile shopImg = null; //æ¥å—å›¾ç‰‡ä¿¡æ¯
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext()); //æ–‡ä»¶ä¸Šä¼ è§£æå™¨è§£ærequesté‡Œçš„ä¿¡æ¯
+        if (commonsMultipartResolver.isMultipart(request)){ //åˆ¤æ–­requestä¸­æ˜¯å¦æœ‰ä¸Šä¼ çš„æ–‡ä»¶æµ
             MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
             shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
         }else {
             modelMap.put("success",false);
-            modelMap.put("errMsg","ÉÏ´«Í¼Æ¬²»ÄÜÎª¿Õ");
+            modelMap.put("errMsg","ä¸Šä¼ å›¾ç‰‡ä¸èƒ½ä¸ºç©º");
             return modelMap;
         }
-        //2.×¢²áµêÆÌ
+        //2.æ³¨å†Œåº—é“º
         if (shop!=null&&shopImg!=null){
             PersonInfo owner = new PersonInfo();
             owner.setUserId(1L);
             shop.setOwner(owner);
-            File shopImgFile = new File(PathUtil.getImgBasePath()+ ImageUtil.getRandomFileName());
+            ShopExecution se = null;
             try {
-                shopImgFile.createNewFile();
-            } catch (IOException e) {
-                modelMap.put("success",false);
-                modelMap.put("errMsg",e.getMessage());
-                return modelMap;
-            }
-            try {
-                inPutStreamToFile(shopImg.getInputStream(),shopImgFile);
-            } catch (IOException e) {
-                modelMap.put("success",false);
-                modelMap.put("errMsg",e.getMessage());
-                return modelMap;
-            }
-            ShopExecution se = shopService.addShop(shop,shopImgFile);
-            if (se.getState()== ShopStateEnum.CHECK.getState()){
-                modelMap.put("success",true);
+                se = shopService.addShop(shop,shopImg.getInputStream(),shopImg.getOriginalFilename());
+                if (se.getState()== ShopStateEnum.CHECK.getState()){
+                    modelMap.put("success",true);
 
-            }else {
+                }else {
+                    modelMap.put("success",false);
+                    modelMap.put("success",se.getStateInfo());
+                }
+            } catch (ShopOperationException e) {
                 modelMap.put("success",false);
-                modelMap.put("success",se.getStateInfo());
+                modelMap.put("success",e.getMessage());
+            }catch (IOException e) {
+                modelMap.put("success",false);
+                modelMap.put("success",e.getMessage());
             }
-            return modelMap;         //3.·µ»Ø½á¹û
+
+            return modelMap;         //3.è¿”å›ç»“æœ
         }else {
             modelMap.put("success",false);
-            modelMap.put("errMsg","ÇëÊäÈëµêÆÌĞÅÏ¢");
+            modelMap.put("errMsg","è¯·è¾“å…¥åº—é“ºä¿¡æ¯");
             return modelMap;
         }
 
     }
 
-    private static void inPutStreamToFile(InputStream ins,File file){
-        FileOutputStream os = null;
-        try {
-            os = new FileOutputStream(file);
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = ins.read(buffer))!=-1){
-                os.write(buffer,0,bytesRead);
-            }
-        }catch (Exception e){
-            throw new RuntimeException("µ÷ÓÃinputStreamToFileÊ±²úÉúÒì³£"+e.getMessage());
-        }finally {
-            try {
-                if (os!=null){
-                    os.close();
-                }
-                if (ins!=null){
-                    ins.close();
-                }
-            }catch (Exception e){
-                throw new RuntimeException("inputStreamToFile¹Ø±Õio²úÉúÒì³£"+e.getMessage());
-            }
-        }
-    }
+//    private static void inPutStreamToFile(InputStream ins,File file){
+//        FileOutputStream os = null;
+//        try {
+//            os = new FileOutputStream(file);
+//            int bytesRead = 0;
+//            byte[] buffer = new byte[1024];
+//            while ((bytesRead = ins.read(buffer))!=-1){
+//                os.write(buffer,0,bytesRead);
+//            }
+//        }catch (Exception e){
+//            throw new RuntimeException("è°ƒç”¨inputStreamToFileæ—¶äº§ç”Ÿå¼‚å¸¸"+e.getMessage());
+//        }finally {
+//            try {
+//                if (os!=null){
+//                    os.close();
+//                }
+//                if (ins!=null){
+//                    ins.close();
+//                }
+//            }catch (Exception e){
+//                throw new RuntimeException("inputStreamToFileå…³é—­ioäº§ç”Ÿå¼‚å¸¸"+e.getMessage());
+//            }
+//        }
+//    }
 }

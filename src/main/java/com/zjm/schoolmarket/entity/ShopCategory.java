@@ -5,15 +5,15 @@ import java.util.Date;
 public class ShopCategory {
 	private Long shopCategoryId;
 	private String shopCategoryName;
-	//µêÆÌÀà±ğÃèÊö
+	//åº—é“ºç±»åˆ«æè¿°
 	private String shopCategoryDesc;
-	//Í¼Æ¬Á´½ÓµØÖ·
+	//å›¾ç‰‡é“¾æ¥åœ°å€
 	private String shopCategoryImg;
 	private Date createTime;
 	private Date lastEditTime;
-	//ÉÏ¼¶ID
+	//ä¸Šçº§ID
 	private ShopCategory parent;
-	
+
 	public Long getShopCategoryId() {
 		return shopCategoryId;
 	}
@@ -56,5 +56,5 @@ public class ShopCategory {
 	public void setParent(ShopCategory parent) {
 		this.parent = parent;
 	}
-	
+
 }

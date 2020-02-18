@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class ProductImg {
 	private Long ProductImgId;
-	//ͼƬ��ַ
+	//图片地址
 	private String imgAddr;
-	//ͼƬ˵��
+	//图片说明
 	private String imgDesc;
 	private Integer priority;
 	private Date createTime;
 	private Long productId;
-	
+
 	public Long getProductImgId() {
 		return ProductImgId;
 	}
@@ -23,7 +23,7 @@ public class ProductImg {
 	}
 	public void setImgAddr(String imgAddr) {
 		this.imgAddr = imgAddr;
-	}	
+	}
 	public String getImgDesc() {
 		return imgDesc;
 	}
@@ -48,6 +48,6 @@ public class ProductImg {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	
-	
+
+
 }

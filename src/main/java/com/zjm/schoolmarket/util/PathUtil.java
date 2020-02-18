@@ -1,12 +1,12 @@
 package com.zjm.schoolmarket.util;
 
 /*
-Ìá¹©Á½ÀàÂ·¾¶£º1.ÒÀ¾İÖ´ĞĞ»·¾³µÄ²»Í¬Ìá¹©¸ùÂ·¾¶£¨ÏîÄ¿Í¼Æ¬ËùĞèÒª´æ·ÅµÄÂ·¾¶£©
+æä¾›ä¸¤ç±»è·¯å¾„ï¼š1.ä¾æ®æ‰§è¡Œç¯å¢ƒçš„ä¸åŒæä¾›æ ¹è·¯å¾„ï¼ˆé¡¹ç›®å›¾ç‰‡æ‰€éœ€è¦å­˜æ”¾çš„è·¯å¾„ï¼‰
  */
 public class PathUtil {
-    private static String separator = System.getProperty("file.separator"); //»ñÈ¡ÏµÍ³µÄÖ´ĞĞÊôĞÔ
+    private static String separator = System.getProperty("file.separator"); //è·å–ç³»ç»Ÿçš„æ‰§è¡Œå±æ€§
     public static String getImgBasePath(){
-        String os = System.getProperty("os.name"); //¸ù¾İ²»Í¬µÄ²Ù×÷ÏµÍ³Ñ¡Ôñ²»Í¬µÄ¸ùÄ¿Â¼
+        String os = System.getProperty("os.name"); //æ ¹æ®ä¸åŒçš„æ“ä½œç³»ç»Ÿé€‰æ‹©ä¸åŒçš„æ ¹ç›®å½•
         String basePath = "";
         if(os.toLowerCase().startsWith("win")){
             basePath="D:/allkinds";
@@ -17,9 +17,9 @@ public class PathUtil {
         return basePath;
     }
 
-    //Ïà¶Ô×ÓÂ·¾¶  »ñÈ¡µêÆÌÍ¼Æ¬µÄ´æ´¢Â·¾¶
+    //ç›¸å¯¹å­è·¯å¾„  è·å–åº—é“ºå›¾ç‰‡çš„å­˜å‚¨è·¯å¾„
     public static String getShopImagePath(long shopId){
         String imagePath = "/upload/item/shop"+shopId+"/";
-        return imagePath.replace("/",separator); //·µ»ØÏîÄ¿Í¼Æ¬µÄ×ÓÂ·¾¶
+        return imagePath.replace("/",separator); //è¿”å›é¡¹ç›®å›¾ç‰‡çš„å­è·¯å¾„
     }
 }

@@ -3,7 +3,7 @@ package com.zjm.schoolmarket.entity;
 import java.util.Date;
 
 public class LocalAuth {
-	//±æµÿ’À∫≈ID
+	//Êú¨Âú∞Ë¥¶Âè∑ID
 	private Long localAuthId;
 	private String username;
 	private String password;

@@ -3,21 +3,21 @@ package com.zjm.schoolmarket.entity;
 import java.util.Date;
 
 public class Area {
-	
+
 	/*
-	 * ÎªÊ²Ã´ÓÃÒıÓÃÀàĞÍ¶ø²»ÓÃ»ù±¾Êı¾İÀàĞÍ£¿
-	 * ÈôÊ¹ÓÃ»ù±¾Êı¾İÀàĞÍ£¬»áÎª¿ÕÖµ¸³0£¬¶øÕâÀï²»ĞèÒª¸³0£¬¹ÊÓÃÒıÓÃÀàĞÍ
+	 * ä¸ºä»€ä¹ˆç”¨å¼•ç”¨ç±»å‹è€Œä¸ç”¨åŸºæœ¬æ•°æ®ç±»å‹ï¼Ÿ
+	 * è‹¥ä½¿ç”¨åŸºæœ¬æ•°æ®ç±»å‹ï¼Œä¼šä¸ºç©ºå€¼èµ‹0ï¼Œè€Œè¿™é‡Œä¸éœ€è¦èµ‹0ï¼Œæ•…ç”¨å¼•ç”¨ç±»å‹
 	 */
-		
-	// ÇøÓòID
+
+	// åŒºåŸŸID
 	private Integer areaId;
-	// ÇøÓòÃû³Æ
+	// åŒºåŸŸåç§°
 	private String areaName;
-	// ÇøÓòÈ¨ÖØ£¨È¨ÖØÔ½´ó£¬ÅÅÃûÔ½¿¿Ç°£©
+	// åŒºåŸŸæƒé‡ï¼ˆæƒé‡è¶Šå¤§ï¼Œæ’åè¶Šé å‰ï¼‰
 	private Integer priority;
-	// ´´½¨Ê±¼ä
+	// åˆ›å»ºæ—¶é—´
 	private Date createTime;
-	// ¸üĞÂÊ±¼ä
+	// æ›´æ–°æ—¶é—´
 	private Date lastEditTime;
 
 	public Integer getAreaId() {

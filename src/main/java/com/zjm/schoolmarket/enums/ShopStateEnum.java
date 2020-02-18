@@ -1,8 +1,8 @@
 package com.zjm.schoolmarket.enums;
 
 public enum ShopStateEnum {
-    CHECK(0,"ÉóºËÖĞ"),OFFLINE(-1,"·Ç·¨µêÆÌ"),SUCCESS(1,"²Ù×÷³É¹¦"),
-    PASS(2,"Í¨¹ıÈÏÖ¤"),INNER_ERROR(-1001,"ÄÚ²¿ÏµÍ³´íÎó"), NULL_SHOPID(-1002,"ShopIdÎª¿Õ"),NULL_SHOP(-1003,"shopĞÅÏ¢Îª¿Õ");
+    CHECK(0,"å®¡æ ¸ä¸­"),OFFLINE(-1,"éæ³•åº—é“º"),SUCCESS(1,"æ“ä½œæˆåŠŸ"),
+    PASS(2,"é€šè¿‡è®¤è¯"),INNER_ERROR(-1001,"å†…éƒ¨ç³»ç»Ÿé”™è¯¯"), NULL_SHOPID(-1002,"ShopIdä¸ºç©º"),NULL_SHOP(-1003,"shopä¿¡æ¯ä¸ºç©º");
 
     private int state;
     private String stateInfo;
@@ -21,7 +21,7 @@ public enum ShopStateEnum {
     }
 
     /**
-     * ¸ù¾İ´«ÈëµÄstate·µ»ØÏàÓ¦µÄenumÖµ
+     * æ ¹æ®ä¼ å…¥çš„stateè¿”å›ç›¸åº”çš„enumå€¼
      */
     public static ShopStateEnum stateOf(int state){
         for (ShopStateEnum stateEnum:values()){

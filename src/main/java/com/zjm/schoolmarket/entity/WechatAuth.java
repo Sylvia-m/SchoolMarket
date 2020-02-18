@@ -6,9 +6,9 @@ public class WechatAuth {
 	private Long wechatAuthId;
 	private String openId;
 	private Date createTime;
-	//ÓÃ»§ÊµÌåÀà
+	//ç”¨æˆ·å®žä½“ç±»
 	private PersonInfo PersonInfo;
-	
+
 	public Long getWechatAuthId() {
 		return wechatAuthId;
 	}

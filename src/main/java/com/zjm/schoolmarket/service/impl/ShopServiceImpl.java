@@ -13,43 +13,44 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
-@Service //¶¨ÒåShopServiceImplÊÇÒªÍ¨¹ıSpringÀ´¹ÜÀíµÄ
+@Service //å®šä¹‰ShopServiceImplæ˜¯è¦é€šè¿‡Springæ¥ç®¡ç†çš„
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, File shopImg) {
-        //Ê×ÏÈ¼ì²é´«ÈëµÄ²ÎÊıÊÇ·ñºÏ·¨
-        //¿ÕÖµÅĞ¶Ï
+    public ShopExecution addShop(Shop shop, InputStream shopImgInPutStream,String fileName) throws ShopOperationException {
+        //é¦–å…ˆæ£€æŸ¥ä¼ å…¥çš„å‚æ•°æ˜¯å¦åˆæ³•
+        //ç©ºå€¼åˆ¤æ–­
         if (shop == null){
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         }
-        //¸øµêÆÌĞÅÏ¢¸½³õÊ¼Öµ
+        //ç»™åº—é“ºä¿¡æ¯é™„åˆå§‹å€¼
         try {
             shop.setEnableStatus(0);
             shop.setCreateTime(new Date());
             shop.setLastEditTime(new Date());
-            //Ìí¼ÓµêÆÌĞÅÏ¢
+            //æ·»åŠ åº—é“ºä¿¡æ¯
             int effectedNum = shopDao.insertShop(shop);
             if (effectedNum<=0){
-                throw new ShopOperationException("µêÆÌ´´½¨Ê§°Ü");
+                throw new ShopOperationException("åº—é“ºåˆ›å»ºå¤±è´¥");
             }else {
-                if (shopImg!=null){
-                    //´æ´¢Í¼Æ¬
+                if (shopImgInPutStream !=null){
+                    //å­˜å‚¨å›¾ç‰‡
                     try {
-                        addShopImg(shop,shopImg);
+                        addShopImg(shop, shopImgInPutStream,fileName);
                     }catch (Exception e){
                         e.printStackTrace();
                         throw new ShopOperationException("addShopImg error:"+e.getMessage());
                     }
-                    //¸üĞÂµêÆÌµÄÍ¼Æ¬µØÖ·
+                    //æ›´æ–°åº—é“ºçš„å›¾ç‰‡åœ°å€
                     effectedNum = shopDao.updateShop(shop);
                     if (effectedNum<=0){
-                        throw new ShopOperationException("¸üĞÂÍ¼Æ¬µØÖ·Ê§°Ü");
+                        throw new ShopOperationException("æ›´æ–°å›¾ç‰‡åœ°å€å¤±è´¥");
                     }
                 }
             }
@@ -60,10 +61,10 @@ public class ShopServiceImpl implements ShopService {
         return new ShopExecution(ShopStateEnum.CHECK,shop);
     }
 
-    private void addShopImg(Shop shop, File shopImg) {
-        //»ñÈ¡shopÍ¼Æ¬Ä¿Â¼µÄÏà¶ÔÖµÂ·¾¶
+    private void addShopImg(Shop shop, InputStream shopImgInPutStream,String fileName) {
+        //è·å–shopå›¾ç‰‡ç›®å½•çš„ç›¸å¯¹å€¼è·¯å¾„
         String dest = PathUtil.getShopImagePath(shop.getShopId());
-        String shopImgAddr = ImageUtil.generateThumbnail(shopImg,dest);
+        String shopImgAddr = ImageUtil.generateThumbnail(shopImgInPutStream,fileName,dest);
         shop.setShopImg(shopImgAddr);
     }
 }

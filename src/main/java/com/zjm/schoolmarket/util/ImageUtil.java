@@ -9,6 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -41,13 +42,13 @@ public class ImageUtil {
     /**
      * 处理缩略图,并返回新生成图片的相对路径：门面照即商品小图
      *
-     * @param thumbnail
+     * @param thumbnailInputStream
      * @param targetAddr
      * @return
      */
-    public static String generateThumbnail(File thumbnail, String targetAddr) {
+    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
         String realFailName = getRandomFileName();       //随机生成不重名文件
-        String extension = getFileExtension(thumbnail);  //获取用户上传文件的扩展名（.jpg/.png）
+        String extension = getFileExtension(fileName);  //获取用户上传文件的扩展名（.jpg/.png）
         makeDirPath(targetAddr);  //创建目录
         String relativeAddr = targetAddr + realFailName + extension;//获取相对路径
         logger.debug("current relativeAddr is:" + relativeAddr);
@@ -57,7 +58,7 @@ public class ImageUtil {
 
         //创建缩略图
         try {
-            Thumbnails.of(thumbnail).size(200, 200)
+            Thumbnails.of(thumbnailInputStream).size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "zjm.png")), 0.5f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {
@@ -84,9 +85,8 @@ public class ImageUtil {
      * @param thumbnail
      * @return
      */
-    private static String getFileExtension(File cFile) {
-        String originalFileName = cFile.getName();
-        return originalFileName.substring(originalFileName.lastIndexOf("."));
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     /*

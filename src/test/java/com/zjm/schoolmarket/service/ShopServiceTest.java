@@ -11,16 +11,19 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 public class ShopServiceTest extends BaseTest {
-    @Autowired //¸æËßSpring³õÊ¼»¯ShopServiceTestÊ±½«shopServiceÊµÏÖÀà¶¯Ì¬×¢Èëµ½Õâ¸ö½Ó¿ÚÀïÃæ
+    @Autowired //å‘Šè¯‰Springåˆå§‹åŒ–ShopServiceTestæ—¶å°†shopServiceå®ç°ç±»åŠ¨æ€æ³¨å…¥åˆ°è¿™ä¸ªæ¥å£é‡Œé¢
     private ShopService shopService;
 
     @Test
-    public void testInsertShop() {
+    public void testInsertShop() throws FileNotFoundException {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
         Area area = new Area();
@@ -31,15 +34,16 @@ public class ShopServiceTest extends BaseTest {
         shop.setOwner(owner);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("ÆßÀïÏã");
-        shop.setShopDesc("Ò»¼ÒºÜºÃºÈµÄÄÌ²èµê");
-        shop.setShopAddr("±±ÃÅÃÀÊ³³Ç");
+        shop.setShopName("åè±å£«");
+        shop.setShopDesc("å­¦é¦¨è‹‘è¥¿ä¾§");
+        shop.setShopAddr("å­¦é¦¨è‹‘");
         shop.setPhone("13359131857");
         shop.setCreateTime(new Date());
         shop.setEnableStatus(ShopStateEnum.CHECK.getState());
-        shop.setAdvice("ÉóºËÖĞ");
+        shop.setAdvice("å®¡æ ¸ä¸­");
         File shopImg = new File("D:/allkinds/img/bawei.jpg");
-        ShopExecution se = shopService.addShop(shop,shopImg);
+        InputStream is = new FileInputStream(shopImg);
+        ShopExecution se = shopService.addShop(shop,is,shopImg.getName());
         assertEquals(ShopStateEnum.CHECK.getState(),se.getState());
     }
 }

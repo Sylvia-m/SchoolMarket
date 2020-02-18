@@ -2,11 +2,11 @@ package com.zjm.schoolmarket.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-//¸ºÔğ´¦ÀíHttpServletRequest²ÎÊı
+//è´Ÿè´£å¤„ç†HttpServletRequestå‚æ•°
 public class HttpServletRequestUtil {
     public static int getInt(HttpServletRequest request,String key){
         try {
-            return Integer.decode(request.getParameter(key)); //½«·µ»ØµÄ×Ö·û´®¶ÔÏó×ª»»³ÉÕûĞÍ
+            return Integer.decode(request.getParameter(key)); //å°†è¿”å›çš„å­—ç¬¦ä¸²å¯¹è±¡è½¬æ¢æˆæ•´å‹
         }catch (Exception e){
             return -1;
         }
@@ -14,7 +14,7 @@ public class HttpServletRequestUtil {
 
     public static long getLong(HttpServletRequest request,String key) {
         try {
-            return Long.valueOf(request.getParameter(key)); //½«·µ»ØµÄ×Ö·û´®¶ÔÏó×ª»»³É³¤ÕûĞÍ
+            return Long.valueOf(request.getParameter(key)); //å°†è¿”å›çš„å­—ç¬¦ä¸²å¯¹è±¡è½¬æ¢æˆé•¿æ•´å‹
         } catch (Exception e) {
             return -1;
         }
@@ -22,7 +22,7 @@ public class HttpServletRequestUtil {
 
     public static Double getDouble(HttpServletRequest request,String key) {
         try {
-            return Double.valueOf(request.getParameter(key)); //½«·µ»ØµÄ×Ö·û´®¶ÔÏó×ª»»³ÉDoubleĞÍ
+            return Double.valueOf(request.getParameter(key)); //å°†è¿”å›çš„å­—ç¬¦ä¸²å¯¹è±¡è½¬æ¢æˆDoubleå‹
         } catch (Exception e) {
             return -1d;
         }
@@ -30,7 +30,7 @@ public class HttpServletRequestUtil {
 
     public static boolean getBoolean(HttpServletRequest request,String key) {
         try {
-            return Boolean.valueOf(request.getParameter(key)); //½«·µ»ØµÄ×Ö·û´®¶ÔÏó×ª»»³É²¼¶ûĞÍ
+            return Boolean.valueOf(request.getParameter(key)); //å°†è¿”å›çš„å­—ç¬¦ä¸²å¯¹è±¡è½¬æ¢æˆå¸ƒå°”å‹
         } catch (Exception e) {
             return false;
         }
