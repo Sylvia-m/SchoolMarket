@@ -11,6 +11,7 @@ import com.zjm.schoolmarket.exception.ShopOperationException;
 import com.zjm.schoolmarket.service.AreaService;
 import com.zjm.schoolmarket.service.ShopCategoryService;
 import com.zjm.schoolmarket.service.ShopService;
+import com.zjm.schoolmarket.util.CodeUtil;
 import com.zjm.schoolmarket.util.HttpServletRequestUtil;
 import com.zjm.schoolmarket.util.ImageUtil;
 import com.zjm.schoolmarket.util.PathUtil;
@@ -63,6 +64,11 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<String,Object>(); //定义一个返回值
+        if (!CodeUtil.checkVerifyCode(request)){
+            modelMap.put("success",false);
+            modelMap.put("errMsg","验证码不正确");
+            return modelMap;
+        }
         //1.接收并转化相应的参数，包括店铺信息以及图片信息
         String shopStr = HttpServletRequestUtil.getString(request,"shopStr");
         ObjectMapper mapper = new ObjectMapper();
