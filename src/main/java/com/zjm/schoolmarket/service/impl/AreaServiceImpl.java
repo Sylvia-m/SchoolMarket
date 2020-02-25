@@ -11,12 +11,13 @@ import com.zjm.schoolmarket.service.AreaService;
 
 @Service
 public class AreaServiceImpl implements AreaService {
+    @Autowired
+    private AreaDao areaDao;
+//    private final AreaDao areaDao;
+//
+//    public AreaServiceImpl(AreaDao areaDao) {
+//        this.areaDao = areaDao;
 
-    private final AreaDao areaDao;
-
-    public AreaServiceImpl(AreaDao areaDao) {
-        this.areaDao = areaDao;
-    }
 
     @Override
     public List<Area> getAreaList() {

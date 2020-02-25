@@ -7,6 +7,8 @@ import com.zjm.schoolmarket.entity.PersonInfo;
 import com.zjm.schoolmarket.entity.Shop;
 import com.zjm.schoolmarket.entity.ShopCategory;
 import com.zjm.schoolmarket.enums.ShopStateEnum;
+import com.zjm.schoolmarket.exception.ShopOperationException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +25,18 @@ public class ShopServiceTest extends BaseTest {
     private ShopService shopService;
 
     @Test
+    public void testModifyShop() throws ShopOperationException,FileNotFoundException {
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        shop.setShopName("哈哈喜茶");
+        File shopImg = new File("D:/allkinds/img/lufei.jpg");
+        InputStream is = new FileInputStream(shopImg);
+        ShopExecution shopExecution = shopService.modifyShop(shop,is,"lufei.jpg");
+        System.out.println("新图片的地址为："+shopExecution.getShop().getShopImg());
+    }
+
+    @Test
+    @Ignore
     public void testInsertShop() throws FileNotFoundException {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
