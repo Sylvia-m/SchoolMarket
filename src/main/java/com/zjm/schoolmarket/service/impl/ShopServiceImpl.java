@@ -7,19 +7,35 @@ import com.zjm.schoolmarket.enums.ShopStateEnum;
 import com.zjm.schoolmarket.exception.ShopOperationException;
 import com.zjm.schoolmarket.service.ShopService;
 import com.zjm.schoolmarket.util.ImageUtil;
+import com.zjm.schoolmarket.util.PageCalculator;
 import com.zjm.schoolmarket.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 @Service //定义ShopServiceImpl是要通过Spring来管理的
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
+
+    @Override
+    public ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+        int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+        List<Shop> shopList = shopDao.queryShopList(shopCondition,rowIndex,pageSize);
+        int count = shopDao.queryShopCount(shopCondition);
+        ShopExecution se = new ShopExecution();
+        if (shopList!=null){
+            se.setShopList(shopList);
+            se.setCount(count);
+        }else {
+            se.setState(ShopStateEnum.INNER_ERROR.getState());
+        }
+        return se;
+    }
 
     @Override
     public Shop getByShopId(Long shopId) {

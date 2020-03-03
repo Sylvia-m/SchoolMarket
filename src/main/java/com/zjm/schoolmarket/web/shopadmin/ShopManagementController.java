@@ -13,8 +13,6 @@ import com.zjm.schoolmarket.service.ShopCategoryService;
 import com.zjm.schoolmarket.service.ShopService;
 import com.zjm.schoolmarket.util.CodeUtil;
 import com.zjm.schoolmarket.util.HttpServletRequestUtil;
-import com.zjm.schoolmarket.util.ImageUtil;
-import com.zjm.schoolmarket.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +39,57 @@ public class ShopManagementController {
     @Autowired
     private AreaService areaService;
 
+    @RequestMapping(value = "/getshopmanagementinfo",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopManagementInfo(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<String, Object>();
+        Long shopId = HttpServletRequestUtil.getLong(request,"shopId");
+        if (shopId<0){
+            //如果从前端获取不到id，则从session回话中获取
+            Object currentShopObj = request.getSession().getAttribute("currentShop");
+            //如从Session会话中也获取不到id,就将它重定向到之前的页面中去
+            if (currentShopObj==null){
+                modelMap.put("redirect",true);
+                modelMap.put("url","SchoolMarket/shop/shoplist");
+            }else {
+                Shop currentShop = (Shop)currentShopObj;
+                modelMap.put("redirect",false);
+                modelMap.put("shopId",currentShop.getShopId());
+            }
+        }else {
+            Shop currentShop = new Shop();
+            currentShop.setShopId(shopId);
+            request.getSession().setAttribute("currentShop",currentShop);
+            modelMap.put("redirect",false);
+        }
+        return modelMap;
+    }
+    @RequestMapping(value = "/getshoplist",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopList(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<>();
+        PersonInfo user = new PersonInfo();
+        user.setUserId(1L);
+        user.setName("test");
+        request.getSession().setAttribute("user",user);
+        user = (PersonInfo)request.getSession().getAttribute("user");
+        try {
+            Shop shopCondition = new Shop();
+            shopCondition.setOwner(user);
+            ShopExecution se = shopService.getShopList(shopCondition,0,100);
+            modelMap.put("shopList",se.getShopList());
+            modelMap.put("user",user);
+            modelMap.put("success",true);
+        }catch (Exception e){
+            modelMap.put("success",false);
+            modelMap.put("errMsg:",e.getMessage());
+        }
+        return modelMap;
+    }
+
     @RequestMapping(value = "/getshopbyid",method = RequestMethod.GET)
     @ResponseBody
-    Map<String, Object> getShopById(HttpServletRequest request) {
+    private Map<String, Object> getShopById(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
         if (shopId > -1) { //shopId>-1则证明前端已经传进来了
