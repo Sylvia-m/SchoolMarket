@@ -50,7 +50,7 @@ public class ShopManagementController {
             //如从Session会话中也获取不到id,就将它重定向到之前的页面中去
             if (currentShopObj==null){
                 modelMap.put("redirect",true);
-                modelMap.put("url","SchoolMarket/shop/shoplist");
+                modelMap.put("url","SchoolMarket/shopadmin/shoplist");
             }else {
                 Shop currentShop = (Shop)currentShopObj;
                 modelMap.put("redirect",false);

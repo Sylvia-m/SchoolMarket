@@ -41,4 +41,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
     }
 
+    @Override
+    public ProductCategoryExecution deleteProductCategory(Long productCategoryId, Long shopId) {
+        return null;
+    }
+
 }
