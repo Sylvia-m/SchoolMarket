@@ -5,7 +5,7 @@ import com.zjm.schoolmarket.dto.Result;
 import com.zjm.schoolmarket.entity.ProductCategory;
 import com.zjm.schoolmarket.entity.Shop;
 import com.zjm.schoolmarket.enums.ProductCategoryStateEnum;
-import com.zjm.schoolmarket.exception.ProductCategoryOperationException;
+import com.zjm.schoolmarket.exceptions.ProductCategoryOperationException;
 import com.zjm.schoolmarket.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +31,10 @@ public class ProductCategoryManagementController {
     @RequestMapping(value = "/getproductcategorylist", method = RequestMethod.GET)
     @ResponseBody
     private Result<List<ProductCategory>> getProductCategoryList(HttpServletRequest request) {
-        Shop shop = new Shop();
-        shop.setShopId(1L);
-        request.getSession().setAttribute("currentShop", shop);
+//        Shop shop = new Shop();
+//        shop.setShopId(1L);
+//        request.getSession().setAttribute("currentShop", shop);
+
 
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
         List<ProductCategory> list = null;
@@ -96,7 +97,6 @@ public class ProductCategoryManagementController {
                 modelMap.put("errMsg", e.toString());
                 return modelMap;
             }
-
         } else {
             modelMap.put("success", false);
             modelMap.put("errMsg", "请至少选择一个商品类别");

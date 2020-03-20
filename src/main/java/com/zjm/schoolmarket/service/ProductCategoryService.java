@@ -2,7 +2,7 @@ package com.zjm.schoolmarket.service;
 
 import com.zjm.schoolmarket.dto.ProductCategoryExecution;
 import com.zjm.schoolmarket.entity.ProductCategory;
-import com.zjm.schoolmarket.exception.ProductCategoryOperationException;
+import com.zjm.schoolmarket.exceptions.ProductCategoryOperationException;
 
 import java.util.List;
 
