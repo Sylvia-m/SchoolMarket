@@ -1,5 +1,6 @@
 package com.zjm.schoolmarket.util;
 
+import com.zjm.schoolmarket.dto.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
@@ -7,10 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
-import javax.xml.soap.SAAJResult;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -43,13 +42,13 @@ public class ImageUtil {
     /**
      * 处理缩略图,并返回新生成图片的相对路径：门面照即商品小图
      *
-     * @param thumbnailInputStream
+     * @param thumbnail
      * @param targetAddr
      * @return
      */
-    public static String generateThumbnail(InputStream thumbnailInputStream, String fileName, String targetAddr) {
+    public static String generateThumbnail(ImageHolder thumbnail, String targetAddr) {
         String realFailName = getRandomFileName();       //随机生成不重名文件
-        String extension = getFileExtension(fileName);  //获取用户上传文件的扩展名（.jpg/.png）
+        String extension = getFileExtension(thumbnail.getImageName());  //获取用户上传文件的扩展名（.jpg/.png）
         makeDirPath(targetAddr);  //创建目录
         String relativeAddr = targetAddr + realFailName + extension;//获取相对路径
         logger.debug("current relativeAddr is:" + relativeAddr);
@@ -59,7 +58,7 @@ public class ImageUtil {
 
         //创建缩略图
         try {
-            Thumbnails.of(thumbnailInputStream).size(200, 200)
+            Thumbnails.of(thumbnail.getImage()).size(337, 640)  //337 640
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "zjm.png")), 0.5f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e) {
@@ -68,6 +67,36 @@ public class ImageUtil {
         }
         return finalPath;
     }
+
+    /**
+     * 处理详情图，并返回新生成图片的相对值路径
+     *
+     * @param thumbnail
+     * @param targetAddr
+     * @return
+     */
+    public static String generateNormalImg(ImageHolder thumbnail, String targetAddr) {
+        String realFailName = getRandomFileName();       //随机生成不重名文件
+        String extension = getFileExtension(thumbnail.getImageName());  //获取用户上传文件的扩展名（.jpg/.png）
+        makeDirPath(targetAddr);  //创建目录
+        String relativeAddr = targetAddr + realFailName + extension;//获取相对路径
+        logger.debug("current relativeAddr is:" + relativeAddr);
+        String finalPath = PathUtil.getImgBasePath() + relativeAddr;
+        File dest = new File(finalPath);//新生成文件路径（相对路径+根路径）
+        logger.debug("current complete addr is:" + finalPath);
+
+        //创建缩略图
+        try {
+            Thumbnails.of(thumbnail.getImage()).size(200, 200)  //337 640
+                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "zjm.png")), 0.5f)
+                    .outputQuality(0.8f).toFile(dest);
+        } catch (IOException e) {
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return finalPath;
+    }
+
 
     /*
      * 创建目标路径所涉及的路径
