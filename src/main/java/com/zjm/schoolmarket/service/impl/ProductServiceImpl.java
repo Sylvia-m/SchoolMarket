@@ -10,6 +10,7 @@ import com.zjm.schoolmarket.enums.ProductStateEnum;
 import com.zjm.schoolmarket.exceptions.ProductOperationException;
 import com.zjm.schoolmarket.service.ProductService;
 import com.zjm.schoolmarket.util.ImageUtil;
+import com.zjm.schoolmarket.util.PageCalculator;
 import com.zjm.schoolmarket.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,23 +27,23 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductImgDao productImgDao;
 
-//	@Override
-//	public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
-//		// 页码转换成数据库的行码，并调用dao层取回指定页码的商品列表
-//		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
-//		List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
-//		// 基于同样的查询条件返回该查询条件下的商品总数
-//		int count = productDao.queryProductCount(productCondition);
-//		ProductExecution pe = new ProductExecution();
-//		pe.setProductList(productList);
-//		pe.setCount(count);
-//		return pe;
-//	}
+	@Override
+	public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+		// 页码转换成数据库的行码，并调用dao层取回指定页码的商品列表
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		List<Product> productList = productDao.queryProductList(productCondition, rowIndex, pageSize);
+		// 基于同样的查询条件返回该查询条件下的商品总数
+		int count = productDao.queryProductCount(productCondition);
+		ProductExecution pe = new ProductExecution();
+		pe.setProductList(productList);
+		pe.setCount(count);
+		return pe;
+	}
 
-//	@Override
-//	public Product getProductById(long productId) {
-//		return productDao.queryProductById(productId);
-//	}
+	@Override
+	public Product getProductById(long productId) {
+		return productDao.queryProductById(productId);
+	}
 
 	@Override
 	@Transactional
@@ -115,11 +116,11 @@ public class ProductServiceImpl implements ProductService {
 				// 更新商品信息
 				int effectedNum = productDao.updateProduct(product);
 				if (effectedNum <= 0) {
-					throw new ProductOperationException("更新商品信息失败");
+					throw new ProductOperationException("更新商品信息失败1");
 				}
 				return new ProductExecution(ProductStateEnum.SUCCESS, product);
 			} catch (Exception e) {
-				throw new ProductOperationException("更新商品信息失败:" + e.toString());
+				throw new ProductOperationException("更新商品信息失败2:" + e.toString());
 			}
 		} else {
 			return new ProductExecution(ProductStateEnum.EMPTY);
@@ -162,10 +163,10 @@ public class ProductServiceImpl implements ProductService {
 			try {
 				int effectedNum = productImgDao.batchInsertProductImg(productImgList);
 				if (effectedNum <= 0) {
-					throw new ProductOperationException("创建商品详情图片失败");
+					throw new ProductOperationException("创建商品详情图片失败1");
 				}
 			} catch (Exception e) {
-				throw new ProductOperationException("创建商品详情图片失败:" + e.toString());
+				throw new ProductOperationException("创建商品详情图片失败2:" + e.toString());
 			}
 		}
 	}
