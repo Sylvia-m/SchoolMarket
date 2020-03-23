@@ -1,13 +1,14 @@
 package com.zjm.schoolmarket.web.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zjm.schoolmarket.dto.ImageHolder;
 import com.zjm.schoolmarket.dto.ShopExecution;
 import com.zjm.schoolmarket.entity.Area;
 import com.zjm.schoolmarket.entity.PersonInfo;
 import com.zjm.schoolmarket.entity.Shop;
 import com.zjm.schoolmarket.entity.ShopCategory;
 import com.zjm.schoolmarket.enums.ShopStateEnum;
-import com.zjm.schoolmarket.exception.ShopOperationException;
+import com.zjm.schoolmarket.exceptions.ShopOperationException;
 import com.zjm.schoolmarket.service.AreaService;
 import com.zjm.schoolmarket.service.ShopCategoryService;
 import com.zjm.schoolmarket.service.ShopService;
@@ -58,6 +59,7 @@ public class ShopManagementController {
             }
         }else {
             Shop currentShop = new Shop();
+
             currentShop.setShopId(shopId);
             request.getSession().setAttribute("currentShop",currentShop);
             modelMap.put("redirect",false);
@@ -170,7 +172,8 @@ public class ShopManagementController {
             shop.setOwner(owner);
             ShopExecution se;
             try {
-                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                se = shopService.addShop(shop, imageHolder);
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     //该用户可以操作的店铺列表
@@ -239,9 +242,10 @@ public class ShopManagementController {
             ShopExecution se;
             try {
                 if (shopImg==null){
-                    se = shopService.modifyShop(shop, null, null);
+                    se = shopService.modifyShop(shop, null);
                 }else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                    se = shopService.modifyShop(shop, imageHolder);
                 }
                 if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);

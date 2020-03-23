@@ -6,7 +6,6 @@ import com.zjm.schoolmarket.entity.ProductCategory;
 import com.zjm.schoolmarket.entity.ProductImg;
 import com.zjm.schoolmarket.entity.Shop;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +72,6 @@ public class ProductDaoTest extends BaseTest {
 	}
 
 	@Test
-	@Ignore
 	public void testBQueryProductList() throws Exception {
 		Product productCondition = new Product();
 		// 分页查询，预期返回三条结果
@@ -81,24 +79,23 @@ public class ProductDaoTest extends BaseTest {
 		assertEquals(3, productList.size());
 		// 查询名称为测试的商品总数
 		int count = productDao.queryProductCount(productCondition);
-		assertEquals(5, count);
+		assertEquals(12, count);
 		// 使用商品名称模糊查询，预期返回两条结果
 		productCondition.setProductName("测试");
-		productList = productDao.queryProductList(productCondition, 0, 3);
-		assertEquals(2, productList.size());
+		productList = productDao.queryProductList(productCondition, 0, 5);
+		assertEquals(5, productList.size());
 		count = productDao.queryProductCount(productCondition);
-		assertEquals(2, count);
+		assertEquals(6, count);
 	}
 
 	@Test
-	@Ignore
 	public void testCQueryProductByProductId() throws Exception {
 		long productId = 1;
 		// 初始化两个商品详情图实例作为productId为1的商品下的详情图片
 		// 批量插入到商品详情图表中
 		ProductImg productImg1 = new ProductImg();
-		productImg1.setImgAddr("图片1");
-		productImg1.setImgDesc("测试图片1");
+		productImg1.setImgAddr("豆角炒肉");
+		productImg1.setImgDesc("豆角炒肉图片");
 		productImg1.setPriority(1);
 		productImg1.setCreateTime(new Date());
 		productImg1.setProductId(productId);
@@ -130,9 +127,12 @@ public class ProductDaoTest extends BaseTest {
 		product.setProductId(1L);
 		product.setShop(shop);
 		product.setProductName("白酒");
+		product.setPromotionPrice("16");
+		product.setNormalPrice("15");
+		product.setLastEditTime(new Date());
 		product.setProductCategory(pc);
 		// 修改productId为1的商品的名称
-		// 以及商品类别并校验影响的行数是否为1
+		// 以及商品类别并校验影响的行数是否为
 		int effectedNum = productDao.updateProduct(product);
 		assertEquals(1, effectedNum);
 	}
@@ -140,8 +140,8 @@ public class ProductDaoTest extends BaseTest {
 	@Test
 	public void testEUpdateProductCategoryToNull() {
 		// 将productCategoryId为2的商品类别下面的商品的商品类别置为空
-		int effectedNum = productDao.updateProductCategoryToNull(2L);
-		assertEquals(1, effectedNum);
+		int effectedNum = productDao.updateProductCategoryToNull(3L);
+		assertEquals(10, effectedNum);
 	}
 
 	@Test

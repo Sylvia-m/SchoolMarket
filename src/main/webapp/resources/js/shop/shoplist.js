@@ -42,8 +42,7 @@ $(function() {
 
     function goShop(status, id) {
         if (status == 1) {
-            return '<a href="/schoolmarket/shopadmin/shopmanagement?shopId=' + id
-                + '">进入</a>';
+            return '<a href="/SchoolMarket/shopadmin/shopmanagement?shopId=' + id + '">进入</a>';
         } else {
             return '';
         }

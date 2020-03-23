@@ -1,13 +1,14 @@
 package com.zjm.schoolmarket.service;
 
 import com.zjm.schoolmarket.BaseTest;
+import com.zjm.schoolmarket.dto.ImageHolder;
 import com.zjm.schoolmarket.dto.ShopExecution;
 import com.zjm.schoolmarket.entity.Area;
 import com.zjm.schoolmarket.entity.PersonInfo;
 import com.zjm.schoolmarket.entity.Shop;
 import com.zjm.schoolmarket.entity.ShopCategory;
 import com.zjm.schoolmarket.enums.ShopStateEnum;
-import com.zjm.schoolmarket.exception.ShopOperationException;
+import com.zjm.schoolmarket.exceptions.ShopOperationException;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class ShopServiceTest extends BaseTest {
         shop.setShopName("哈哈喜茶");
         File shopImg = new File("D:/allkinds/img/lufei.jpg");
         InputStream is = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.modifyShop(shop,is,"lufei.jpg");
+        ImageHolder imageHolder = new ImageHolder("lufei.jpg",is);
+        ShopExecution shopExecution = shopService.modifyShop(shop,imageHolder);
         System.out.println("新图片的地址为："+shopExecution.getShop().getShopImg());
     }
 
@@ -68,7 +70,8 @@ public class ShopServiceTest extends BaseTest {
         shop.setAdvice("审核中");
         File shopImg = new File("D:/allkinds/img/bawei.jpg");
         InputStream is = new FileInputStream(shopImg);
-        ShopExecution se = shopService.addShop(shop,is,shopImg.getName());
+        ImageHolder imageHolder = new ImageHolder(shopImg.getName(),is);
+        ShopExecution se = shopService.addShop(shop,imageHolder);
         assertEquals(ShopStateEnum.CHECK.getState(),se.getState());
     }
 }
