@@ -65,7 +65,7 @@ public class ImageUtil {
             logger.error(e.toString());
             e.printStackTrace();
         }
-        return finalPath;
+        return relativeAddr;
     }
 
     /**
@@ -94,7 +94,7 @@ public class ImageUtil {
             logger.error(e.toString());
             e.printStackTrace();
         }
-        return finalPath;
+        return relativeAddr;
     }
 
 

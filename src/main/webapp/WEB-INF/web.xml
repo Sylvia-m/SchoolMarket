@@ -23,7 +23,7 @@
         <!-- 图片宽度 -->
         <init-param>
             <param-name>kaptcha.textproducer.width</param-name>
-            <param-value>135</param-value>
+            <param-value>125</param-value>
         </init-param>
         <!-- 使用哪些字符生成验证码 -->
         <init-param>
@@ -33,12 +33,12 @@
         <!-- 图片高度 -->
         <init-param>
             <param-name>kaptcha.image.height</param-name>
-            <param-value>50</param-value>
+            <param-value>45</param-value>
         </init-param>
 		<!-- 字体大小 -->
 		<init-param>
 			<param-name>kaptcha.textproducer.font.size</param-name>
-			<param-value>43</param-value>
+			<param-value>38</param-value>
 		</init-param>
 		<!-- 干扰线颜色 -->
 		<init-param>
@@ -91,4 +91,7 @@
         <!-- 默认匹配所有的请求 -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 </web-app>

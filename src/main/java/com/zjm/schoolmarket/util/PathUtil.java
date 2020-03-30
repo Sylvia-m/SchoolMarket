@@ -19,7 +19,7 @@ public class PathUtil {
 
     //相对子路径  获取店铺图片的存储路径
     public static String getShopImagePath(long shopId){
-        String imagePath = "/upload/item/shop"+shopId+"/";
+        String imagePath = "/upload/item/shop/"+shopId+"/";
         return imagePath.replace("/",separator); //返回项目图片的子路径
     }
 }

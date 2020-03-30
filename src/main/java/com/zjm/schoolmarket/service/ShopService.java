@@ -1,11 +1,9 @@
 package com.zjm.schoolmarket.service;
 
+import com.zjm.schoolmarket.dto.ImageHolder;
 import com.zjm.schoolmarket.dto.ShopExecution;
 import com.zjm.schoolmarket.entity.Shop;
-import com.zjm.schoolmarket.exception.ShopOperationException;
-
-import java.io.File;
-import java.io.InputStream;
+import com.zjm.schoolmarket.exceptions.ShopOperationException;
 
 public interface ShopService {
     /**
@@ -26,19 +24,17 @@ public interface ShopService {
     /***
      * 更新店铺信息，包括对图片的处理
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      * @throws ShopOperationException
      */
-    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+    ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException;
     /***
      * 注册店铺
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      * @throws ShopOperationException
      */
-    ShopExecution addShop(Shop shop, InputStream shopImgInputStream,String fileName) throws ShopOperationException;
+    ShopExecution addShop(Shop shop, ImageHolder thumbnail) throws ShopOperationException;
 }
