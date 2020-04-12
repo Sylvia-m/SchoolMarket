@@ -22,11 +22,11 @@ public class WechatAuthDaoTest extends BaseTest {
 		// 新增一条微信帐号
 		WechatAuth wechatAuth = new WechatAuth();
 		PersonInfo personInfo = new PersonInfo();
-		personInfo.setUserId(1L);
+		personInfo.setUserId(2L);
 		// 给微信帐号绑定上用户信息
 		wechatAuth.setPersonInfo(personInfo);
 		// 随意设置上openId
-		wechatAuth.setOpenId("dafahizhfdhaih");
+		wechatAuth.setOpenId("opop");
 		wechatAuth.setCreateTime(new Date());
 		int effectedNum = wechatAuthDao.insertWechatAuth(wechatAuth);
 		assertEquals(1, effectedNum);
@@ -34,8 +34,8 @@ public class WechatAuthDaoTest extends BaseTest {
 
 	@Test
 	public void testBQueryWechatAuthByOpenId() throws Exception {
-		WechatAuth wechatAuth = wechatAuthDao.queryWechatInfoByOpenId("dafahizhfdhaih");
-		assertEquals("测试", wechatAuth.getPersonInfo().getName());
+		WechatAuth wechatAuth = wechatAuthDao.queryWechatInfoByOpenId("opop");
+		assertEquals("葡萄人", wechatAuth.getPersonInfo().getName());
 	}
 
 }
