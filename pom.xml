@@ -9,7 +9,7 @@
 	<!--<name>o2o Maven Webapp</name> -->
 	<url>http://maven.apache.org</url>
 	<properties>
-		<spring.version>5.2.3.RELEASE</spring.version>
+		<spring.version>5.3.14</spring.version>
 	</properties>
 	<dependencies>
 		<dependency>
